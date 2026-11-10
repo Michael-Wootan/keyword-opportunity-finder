@@ -1,0 +1,19 @@
+{
+  "name": "keyword-opportunity-finder",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Expands seed topics through the Ahrefs API, adds competitor-gap and trending scans, filters and scores the results, and queues new keywords in a Google Sheet by intent.",
+  "main": "src/keyword-discovery.js",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "discover": "node src/keyword-discovery.js",
+    "dry-run": "node src/keyword-discovery.js --dry-run",
+    "seeds": "node src/keyword-discovery.js --report",
+    "test": "node scripts/test-filters.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "googleapis": "^171.4.0",
+    "nodemailer": "^8.0.11"
+  }
+}

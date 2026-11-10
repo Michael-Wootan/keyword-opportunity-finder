@@ -1,0 +1,56 @@
+name: Keyword Discovery
+
+on:
+  schedule:
+    - cron: '0 12 * * 1'   # Monday 12:00 UTC
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (print opportunities, write nothing to the Sheet)'
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: keyword-discovery
+  cancel-in-progress: false
+
+jobs:
+  run:
+    # Scheduled runs are off until the repository variable ENABLE_SCHEDULE is 'true',
+    # so a fresh fork or an unconfigured copy never runs (or fails) on its own.
+    if: github.event_name == 'workflow_dispatch' || vars.ENABLE_SCHEDULE == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - run: npm test
+
+      # config/discovery.json and the service account key are gitignored;
+      # CI writes them from a repository variable and a secret
+      - name: Write config and credentials
+        env:
+          DISCOVERY_JSON: ${{ vars.DISCOVERY_JSON }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -n "$DISCOVERY_JSON" ]; then printf '%s' "$DISCOVERY_JSON" > config/discovery.json; fi
+          printf '%s' "$GOOGLE_SERVICE_ACCOUNT_JSON" > service-account.json
+
+      - name: Discover keywords
+        run: node src/keyword-discovery.js ${{ inputs.dry_run && '--dry-run' || '' }}
+        env:
+          AHREFS_API_TOKEN:   ${{ secrets.AHREFS_API_TOKEN }}
+          BLOG_SHEET_ID:      ${{ secrets.BLOG_SHEET_ID }}
+          GOOGLE_SERVICE_ACCOUNT_PATH: ./service-account.json
+          GMAIL_USER:         ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          EMAIL_NOTIFY:       ${{ vars.EMAIL_NOTIFY }}
+          SITE_DOMAIN:        ${{ vars.SITE_DOMAIN }}
+          COMPANY_NAME:       ${{ vars.COMPANY_NAME }}

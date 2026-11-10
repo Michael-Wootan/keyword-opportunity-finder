@@ -1,0 +1,30 @@
+{
+  "homeMarket": "us",
+  "seeds": [
+    { "topic": "specialty coffee beans", "market": "us", "intent": "commercial" },
+    { "topic": "single origin coffee", "market": "us", "intent": "commercial" },
+    { "topic": "wholesale coffee beans", "market": "us", "intent": "commercial" },
+    { "topic": "green coffee beans bulk", "market": "us", "intent": "commercial" },
+    { "topic": "how to store coffee beans", "market": "us", "intent": "informational" },
+    { "topic": "light roast vs dark roast", "market": "us", "intent": "informational" },
+    { "topic": "coffee processing methods", "market": "us", "intent": "informational" },
+    { "topic": "kaffee großhandel", "market": "de", "intent": "commercial" },
+    { "topic": "grossiste café", "market": "fr", "intent": "commercial" },
+    { "topic": "café al por mayor", "market": "es", "intent": "commercial" },
+    { "topic": "wholesale coffee beans uk", "market": "gb", "intent": "commercial" }
+  ],
+  "competitors": ["competitor-one.example", "competitor-two.example"],
+  "trendingSeeds": ["specialty coffee", "coffee beans", "cold brew", "coffee wholesale"],
+  "brandTerms": ["starbucks", "nespresso", "keurig", "folgers", "dunkin"],
+  "irrelevantTerms": ["near me", "reddit", "youtube", "amazon", "walmart", "calories", "pregnan(t|cy)", "pods?", "instant", "k.?cups?"],
+  "relevanceTerms": ["coffee", "espresso", "beans?", "roast(ed|er|ing)?", "arabica", "robusta", "cold brew", "wholesale", "bulk", "supplier", "distributor", "private label", "kaffee", "café", "caffè", "großhandel", "grossiste", "al por mayor", "ingrosso"],
+  "retiredTerms": ["flavou?red coffee", "decaf pods"],
+  "retiredExceptionTerms": ["vs", "versus", "what is"],
+  "intent": {
+    "internationalLanguageTerms": ["großhandel", "grossiste", "groothandel", "en gros", "al por mayor", "mayorista", "ingrosso", "fournisseur", "hurtownia"],
+    "internationalGeoTerms": ["europe", "european", "eu", "uk", "france", "germany", "spain", "italy", "netherlands", "poland", "international", "worldwide", "overseas"],
+    "informationalTerms": ["how to", "what is", "why", "guide", "difference between"],
+    "b2bTerms": ["wholesale", "bulk", "supplier", "distributor", "b2b", "white label", "private label", "import", "export", "per pound", "per kg", "per lb"],
+    "buyingTerms": ["buy", "for sale", "price", "order", "shop", "cheap", "best", "top", "review", "vs", "compare", "deals", "discount", "coupon", "where to"]
+  }
+}

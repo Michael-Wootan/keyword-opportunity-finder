@@ -1,0 +1,8 @@
+node_modules/
+.env
+.env.*
+!.env.example
+service-account.json
+config/discovery.json
+*.log
+.DS_Store
